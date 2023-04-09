@@ -9,7 +9,11 @@ def home():
 
 @app.route("/categories")
 def categories():
-    return render_template("categories.html")
+    # need to change the cursor object returned by the query into a python list
+    categories = list(Category.query.order_by(Category.category_name).all())
+    # first categories is from the html template the other is variable declared 
+    # in this fuction
+    return render_template("categories.html", categories=categories)
 
 
 @app.route("/add_category", methods=["GET", "POST"])
